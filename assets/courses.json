@@ -1,0 +1,284 @@
+{
+  "courses": [
+    {
+      "id": "algebra",
+      "title": "Álgebra",
+      "area": "algebra",
+      "accentColorKey": "algebra",
+      "units": [
+        {
+          "id": "algebra_u1",
+          "title": "Pensamiento variacional",
+          "lessons": [
+            {
+              "id": "alg_l1",
+              "title": "Patrones y regularidades",
+              "estimatedMinutes": 6,
+              "theoryPlain": "Un patrón numérico es una regla que relaciona términos consecutivos. Identificar la regla permite predecir el siguiente valor sin enumerar todo el conjunto.\n\nEjemplo: 2, 5, 8, 11, ... la diferencia entre términos consecutivos es constante (3). El siguiente término sería 14.\n\nConecta con aprendizaje significativo: relaciona con conteos y sumas repetidas que ya dominas.",
+              "exercises": [
+                {
+                  "id": "alg_l1_e1",
+                  "prompt": "En la sucesión 4, 7, 10, 13, ..., ¿cuál es el siguiente término?",
+                  "options": ["15", "16", "17", "18"],
+                  "correctIndex": 1,
+                  "explanation": "La diferencia es 3 en cada paso. 13 + 3 = 16."
+                },
+                {
+                  "id": "alg_l1_e2",
+                  "prompt": "Si un patrón aumenta en 5 cada vez y el primer término es 2, el tercer término es:",
+                  "options": ["7", "10", "12", "17"],
+                  "correctIndex": 2,
+                  "explanation": "2, luego 2+5=7, luego 7+5=12. El tercer término es 12."
+                },
+                {
+                  "id": "alg_l1_e3",
+                  "prompt": "¿Qué significa 'regularidad' en una lista de números?",
+                  "options": [
+                    "Que todos son iguales",
+                    "Que existe una regla reproducible entre términos",
+                    "Que son números primos",
+                    "Que están ordenados alfabéticamente"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Regularidad implica una regla o repetición estructurada que se puede describir y usar para predecir."
+                }
+              ]
+            },
+            {
+              "id": "alg_l2",
+              "title": "Ecuación lineal básica",
+              "estimatedMinutes": 8,
+              "theoryPlain": "Una ecuación lineal en una variable tiene la forma ax + b = c, con a distinto de cero. Resolver es hallar el valor de x que hace verdadera la igualdad.\n\nPasos típicos: restar b en ambos lados, luego dividir por a.\n\nMicro-objetivo: resolver ax+b=c con números enteros pequeños, reduciendo carga cognitiva al aislar una operación por paso.",
+              "exercises": [
+                {
+                  "id": "alg_l2_e1",
+                  "prompt": "Resuelve: x + 7 = 15",
+                  "options": ["6", "7", "8", "22"],
+                  "correctIndex": 2,
+                  "explanation": "Resta 7 en ambos lados: x = 15 - 7 = 8."
+                },
+                {
+                  "id": "alg_l2_e2",
+                  "prompt": "Resuelve: 3x = 18",
+                  "options": ["3", "6", "9", "15"],
+                  "correctIndex": 1,
+                  "explanation": "Divide entre 3: x = 18/3 = 6."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "statistics",
+      "title": "Estadística",
+      "area": "statistics",
+      "accentColorKey": "statistics",
+      "units": [
+        {
+          "id": "stat_u1",
+          "title": "Representación de datos",
+          "lessons": [
+            {
+              "id": "stat_l1",
+              "title": "Media aritmética",
+              "estimatedMinutes": 5,
+              "theoryPlain": "La media (promedio) de un conjunto de datos es la suma de todos los valores dividida entre la cantidad de valores.\n\nSirve para resumir un tendencia central cuando no hay valores extremos que distorsionen la lectura.",
+              "exercises": [
+                {
+                  "id": "stat_l1_e1",
+                  "prompt": "La media de 10, 12 y 14 es:",
+                  "options": ["11", "12", "13", "36"],
+                  "correctIndex": 1,
+                  "explanation": "(10+12+14)/3 = 36/3 = 12."
+                },
+                {
+                  "id": "stat_l1_e2",
+                  "prompt": "Si se agrega un valor igual a la media actual, la nueva media:",
+                  "options": ["siempre sube", "siempre baja", "permanece igual", "no se puede saber"],
+                  "correctIndex": 2,
+                  "explanation": "Añadir un valor igual al promedio no cambia la media."
+                },
+                {
+                  "id": "stat_l1_e3",
+                  "prompt": "En el conjunto {2, 6, 10}, la suma total es 18 y hay 3 datos. La media es:",
+                  "options": ["4", "5", "6", "9"],
+                  "correctIndex": 2,
+                  "explanation": "18 / 3 = 6."
+                }
+              ]
+            },
+            {
+              "id": "stat_l2",
+              "title": "Mediana",
+              "estimatedMinutes": 6,
+              "theoryPlain": "La mediana es el valor central cuando los datos se ordenan. Si hay cantidad par de datos, suele tomarse el promedio de los dos centrales.\n\nEs útil frente a valores atípicos extremos, más que la media en algunos contextos.",
+              "exercises": [
+                {
+                  "id": "stat_l2_e1",
+                  "prompt": "Mediana de 1, 9, 3 ordenados:",
+                  "options": ["1", "3", "4", "9"],
+                  "correctIndex": 1,
+                  "explanation": "Orden: 1, 3, 9. El central es 3."
+                },
+                {
+                  "id": "stat_l2_e2",
+                  "prompt": "En datos ordenados con cantidad par, la mediana típicamente:",
+                  "options": [
+                    "es siempre el mayor",
+                    "es el promedio de los dos valores centrales",
+                    "coincide con la moda",
+                    "es la mitad de la media"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Con cantidad par, se promedian los dos valores centrales para ubicar el punto medio."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "geometry",
+      "title": "Geometría",
+      "area": "geometry",
+      "accentColorKey": "geometry",
+      "units": [
+        {
+          "id": "geo_u1",
+          "title": "Figuras planas",
+          "lessons": [
+            {
+              "id": "geo_l1",
+              "title": "Área del rectángulo",
+              "estimatedMinutes": 5,
+              "theoryPlain": "El área de un rectángulo es base por altura: A = b * h.\n\nLas unidades de área son cuadradas (por ejemplo cm²) porque se multiplican dos longitudes.",
+              "exercises": [
+                {
+                  "id": "geo_l1_e1",
+                  "prompt": "Un rectángulo mide 4 cm de base y 3 cm de altura. Su área es:",
+                  "options": ["7 cm²", "12 cm²", "14 cm²", "24 cm²"],
+                  "correctIndex": 1,
+                  "explanation": "4 * 3 = 12 cm²."
+                },
+                {
+                  "id": "geo_l1_e2",
+                  "prompt": "Si duplicas solo la base y mantienes la altura, el área:",
+                  "options": ["se divide entre 2", "no cambia", "se duplica", "se cuadruplica"],
+                  "correctIndex": 2,
+                  "explanation": "A = b*h. Si b -> 2b, el área pasa a 2bh, es decir, se duplica."
+                },
+                {
+                  "id": "geo_l1_e3",
+                  "prompt": "Un cuadrado de lado 5 tiene área:",
+                  "options": ["10", "20", "25", "15"],
+                  "correctIndex": 2,
+                  "explanation": "5 * 5 = 25."
+                }
+              ]
+            },
+            {
+              "id": "geo_l2",
+              "title": "Teorema de Pitágoras (introducción)",
+              "estimatedMinutes": 8,
+              "theoryPlain": "En un triángulo rectángulo, los catetos a y b y la hipotenusa c cumplen a² + b² = c².\n\nSirve para calcular una longitud faltante cuando las otras dos son conocidas.",
+              "exercises": [
+                {
+                  "id": "geo_l2_e1",
+                  "prompt": "Triángulo rectángulo con catetos 3 y 4. La hipotenusa es:",
+                  "options": ["5", "6", "7", "12"],
+                  "correctIndex": 0,
+                  "explanation": "3² + 4² = 9 + 16 = 25. √25 = 5."
+                },
+                {
+                  "id": "geo_l2_e2",
+                  "prompt": "La hipotenusa es siempre:",
+                  "options": [
+                    "el lado más corto",
+                    "el lado opuesto al ángulo recto",
+                    "cualquier cateto",
+                    "la suma de catetos"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "La hipotenusa es el lado frente al ángulo recto y el más largo."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "arithmetic",
+      "title": "Aritmética",
+      "area": "arithmetic",
+      "accentColorKey": "arithmetic",
+      "units": [
+        {
+          "id": "ari_u1",
+          "title": "Operaciones y proporcionalidad",
+          "lessons": [
+            {
+              "id": "ari_l1",
+              "title": "Regla de tres simple",
+              "estimatedMinutes": 6,
+              "theoryPlain": "La regla de tres relaciona dos magnitudes proporcionales. Si 2 lapiceros cuestan 5000 COP, ¿cuánto cuestan 5?\n\nMétodo: (5 * 5000) / 2.\n\nÚtil en contextos cotidianos y como puente hacia el razonamiento variacional.",
+              "exercises": [
+                {
+                  "id": "ari_l1_e1",
+                  "prompt": "Si 3 cuadernos cuestan 12000 COP, 5 cuadernos cuestan:",
+                  "options": ["18000", "20000", "22000", "24000"],
+                  "correctIndex": 1,
+                  "explanation": "12000 * 5 / 3 = 20000."
+                },
+                {
+                  "id": "ari_l1_e2",
+                  "prompt": "La regla de tres aplica cuando las magnitudes son:",
+                  "options": [
+                    "independientes",
+                    "proporcionales",
+                    "siempre inversas",
+                    "aleatorias"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Se requiere proporcionalidad directa (o inversa en variantes avanzadas)."
+                },
+                {
+                  "id": "ari_l1_e3",
+                  "prompt": "Si 4 horas producen 20 unidades, en 10 horas se producen:",
+                  "options": ["25", "40", "50", "80"],
+                  "correctIndex": 2,
+                  "explanation": "20 * 10 / 4 = 50."
+                }
+              ]
+            },
+            {
+              "id": "ari_l2",
+              "title": "Porcentajes básicos",
+              "estimatedMinutes": 7,
+              "theoryPlain": "El p% de una cantidad Q es (p/100)*Q.\n\nTambién puedes multiplicar Q por 0.p cuando p es un entero simple (por ejemplo 15% = 0.15).",
+              "exercises": [
+                {
+                  "id": "ari_l2_e1",
+                  "prompt": "El 20% de 250 es:",
+                  "options": ["20", "40", "50", "60"],
+                  "correctIndex": 2,
+                  "explanation": "250 * 0.20 = 50."
+                },
+                {
+                  "id": "ari_l2_e2",
+                  "prompt": "Si un precio sube 10% y luego baja 10% del nuevo valor, respecto al original:",
+                  "options": ["sube", "baja", "igual", "falta información"],
+                  "correctIndex": 1,
+                  "explanation": "1.1 * 0.9 = 0.99, queda 1% por debajo del precio inicial."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

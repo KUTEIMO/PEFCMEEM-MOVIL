@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../app.dart';
+import '../../core/branding_strings.dart';
 import '../../core/models/course_models.dart';
 import '../../core/services/gamification.dart';
+import '../../theme/app_tokens.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -17,23 +20,86 @@ class HomeScreen extends StatelessWidget {
     final level = Gamification.levelFromTotalXp(p.totalXp);
     final xpNext = Gamification.xpForNextLevel(p.totalXp);
 
+    final tokens = context.tokens;
+    final daily = cat?.dailyChallengeRef();
+    final dailyDone = daily != null && app.isLessonCompleted(daily.lesson.id);
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('PEFC'),
+        title: Row(
+          children: [
+            SvgPicture.asset(
+              'assets/branding/pefcmeem_mark.svg',
+              height: 26,
+              fit: BoxFit.contain,
+              excludeFromSemantics: true,
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    BrandingStrings.acronym,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800),
+                  ),
+                  Text(
+                    BrandingStrings.appTagline,
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
         children: [
-          Text(
-            'Hola, ${p.displayName}',
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w600,
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(tokens.radiusXl),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  tokens.heroGradientStart,
+                  tokens.heroGradientEnd,
+                ],
+              ),
+              border: Border.all(
+                color: Theme.of(context).colorScheme.outlineVariant.withValues(alpha: 0.5),
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Hola, ${p.displayName}',
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
                 ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            'Grado ${p.gradeLabel} · Meta: ${p.goalLabel}',
-            style: Theme.of(context).textTheme.bodyMedium,
+                const SizedBox(height: 4),
+                Text(
+                  'Grado ${p.gradeLabel} · Meta: ${p.goalLabel}',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                if (app.currentGroupCode != null) ...[
+                  const SizedBox(height: 8),
+                  Chip(
+                    avatar: const Icon(Icons.groups_rounded, size: 18),
+                    label: Text('Grupo ${app.currentGroupCode}'),
+                  ),
+                ],
+                const SizedBox(height: 12),
+              ],
+            ),
           ),
           const SizedBox(height: 20),
           Row(
@@ -68,6 +134,34 @@ class HomeScreen extends StatelessWidget {
             'Siguiente nivel en $xpNext XP',
             style: Theme.of(context).textTheme.labelMedium,
           ),
+          if (daily != null) ...[
+            const SizedBox(height: 24),
+            Text(
+              'Reto del día',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+            const SizedBox(height: 8),
+            Card(
+              child: ListTile(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                leading: Icon(Icons.flag_rounded, color: daily.course.area.accentColor),
+                title: Text(daily.lesson.title),
+                subtitle: Text(
+                  '${daily.course.title} · Intensidad ${daily.lesson.difficulty}/3${dailyDone ? ' · Hecho' : ''}',
+                ),
+                trailing: FilledButton(
+                  onPressed: dailyDone || !app.isLessonUnlocked(daily.course.id, daily.lesson.id)
+                      ? null
+                      : () => context.push(
+                            '/course/${daily.course.id}/lesson/${daily.lesson.id}',
+                          ),
+                  child: Text(dailyDone ? 'Listo' : 'Ir'),
+                ),
+              ),
+            ),
+          ],
           const SizedBox(height: 20),
           Text(
             'Continúa tu progreso',

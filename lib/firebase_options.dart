@@ -1,5 +1,6 @@
-// Reemplaza este archivo ejecutando: dart pub global activate flutterfire_cli && flutterfire configure
-// Los valores actuales son placeholders para compilar; deben coincidir con tu proyecto Firebase.
+// Generado con `flutterfire configure` (proyecto pefcmeem-633d9).
+// Android: también `android/app/google-services.json`.
+// iOS: también `ios/Runner/GoogleService-Info.plist`.
 // ignore_for_file: lines_longer_than_80_chars
 
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
@@ -23,28 +24,30 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'REPLACE_WEB_API_KEY',
-    appId: '1:000000000000:web:0000000000000000000000',
-    messagingSenderId: '000000000000',
-    projectId: 'pefcmeem-placeholder',
-    authDomain: 'pefcmeem-placeholder.firebaseapp.com',
-    storageBucket: 'pefcmeem-placeholder.appspot.com',
+    apiKey: 'AIzaSyAZcaIVV1M0qYvP6Yy6oa7U_edxyCs_FiQ',
+    appId: '1:1084677395538:web:7f2c840f309f6bfc417b8b',
+    messagingSenderId: '1084677395538',
+    projectId: 'pefcmeem-633d9',
+    authDomain: 'pefcmeem-633d9.firebaseapp.com',
+    storageBucket: 'pefcmeem-633d9.firebasestorage.app',
+    measurementId: 'G-N1LT1JH038',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'REPLACE_ANDROID_API_KEY',
-    appId: '1:000000000000:android:0000000000000000000000',
-    messagingSenderId: '000000000000',
-    projectId: 'pefcmeem-placeholder',
-    storageBucket: 'pefcmeem-placeholder.appspot.com',
+    apiKey: 'AIzaSyDwGUFNw6e9tmHVXi992N_YBREKt9TZUp8',
+    appId: '1:1084677395538:android:5e11b2d4ba3cc367417b8b',
+    messagingSenderId: '1084677395538',
+    projectId: 'pefcmeem-633d9',
+    storageBucket: 'pefcmeem-633d9.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'REPLACE_IOS_API_KEY',
-    appId: '1:000000000000:ios:0000000000000000000000',
-    messagingSenderId: '000000000000',
-    projectId: 'pefcmeem-placeholder',
-    storageBucket: 'pefcmeem-placeholder.appspot.com',
+    apiKey: 'AIzaSyBE4pwp3Xf6Z88SI_AA5P8DXzvanZIe8PE',
+    appId: '1:1084677395538:ios:6502687f28d5716b417b8b',
+    messagingSenderId: '1084677395538',
+    projectId: 'pefcmeem-633d9',
+    storageBucket: 'pefcmeem-633d9.firebasestorage.app',
     iosBundleId: 'com.pefcmeem.app.pefcmeem',
   );
+
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../app.dart';
+import '../../widgets/learning_companion.dart';
 
 class LessonTheoryScreen extends StatelessWidget {
   const LessonTheoryScreen({
@@ -35,13 +36,18 @@ class LessonTheoryScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
                     children: [
                       Chip(
                         label: Text('~${lesson.estimatedMinutes} min'),
                         avatar: const Icon(Icons.schedule, size: 18),
                       ),
-                      const SizedBox(width: 8),
+                      Chip(
+                        label: Text('Intensidad ${lesson.difficulty}/3'),
+                        avatar: const Icon(Icons.speed_rounded, size: 18),
+                      ),
                       if (done)
                         Chip(
                           label: const Text('Completada'),
@@ -49,7 +55,9 @@ class LessonTheoryScreen extends StatelessWidget {
                         ),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 16),
+                  const LearningCompanion(mood: CompanionMood.hint, compact: true),
+                  const SizedBox(height: 16),
                   Text(
                     'Teoría',
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -73,13 +81,26 @@ class LessonTheoryScreen extends StatelessWidget {
                       onPressed: () => context.pop(),
                       child: const Text('Volver'),
                     )
-                  : FilledButton(
-                      onPressed: () {
-                        app.startLessonAttempt(lesson.id, lesson.exercises.length);
-                        context.push('/course/$courseId/lesson/$lessonId/exercise/0');
-                      },
-                      child: const Text('Practicar'),
-                    ),
+                  : lesson.exercises.isEmpty
+                      ? FilledButton(
+                          onPressed: () async {
+                            await app.completeLessonSession(
+                              lessonId: lesson.id,
+                              estimatedMinutes: lesson.estimatedMinutes,
+                              correctCount: 0,
+                              totalQuestions: 0,
+                            );
+                            if (context.mounted) context.pop();
+                          },
+                          child: const Text('Marcar lección como vista'),
+                        )
+                      : FilledButton(
+                          onPressed: () {
+                            app.startLessonAttempt(lesson.id, lesson.exercises.length);
+                            context.push('/course/$courseId/lesson/$lessonId/exercise/0');
+                          },
+                          child: const Text('Practicar'),
+                        ),
             ),
           ),
         ],

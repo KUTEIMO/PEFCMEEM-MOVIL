@@ -35,6 +35,7 @@ class Lesson {
     required this.estimatedMinutes,
     required this.theoryPlain,
     required this.exercises,
+    this.difficulty = 1,
   });
 
   final String id;
@@ -42,6 +43,7 @@ class Lesson {
   final int estimatedMinutes;
   final String theoryPlain;
   final List<Exercise> exercises;
+  final int difficulty;
 
   factory Lesson.fromJson(Map<String, dynamic> json) {
     return Lesson(
@@ -52,6 +54,7 @@ class Lesson {
       exercises: (json['exercises'] as List<dynamic>)
           .map((e) => Exercise.fromJson(e as Map<String, dynamic>))
           .toList(),
+      difficulty: (json['difficulty'] as num?)?.toInt().clamp(1, 3) ?? 1,
     );
   }
 }
@@ -118,15 +121,37 @@ class Course {
 }
 
 class CourseCatalog {
-  const CourseCatalog({required this.courses});
+  const CourseCatalog({
+    required this.courses,
+    this.dailyChallengeLessonId,
+  });
 
   final List<Course> courses;
+  final String? dailyChallengeLessonId;
 
   factory CourseCatalog.fromJson(Map<String, dynamic> json) {
     final list = (json['courses'] as List<dynamic>)
         .map((e) => Course.fromJson(e as Map<String, dynamic>))
         .toList();
-    return CourseCatalog(courses: list);
+    return CourseCatalog(
+      courses: list,
+      dailyChallengeLessonId: json['dailyChallengeLessonId'] as String?,
+    );
+  }
+
+  LessonRef? dailyChallengeRef() {
+    final id = dailyChallengeLessonId;
+    if (id == null) return null;
+    for (final c in courses) {
+      for (final u in c.units) {
+        for (final l in u.lessons) {
+          if (l.id == id) {
+            return LessonRef(course: c, unit: u, lesson: l);
+          }
+        }
+      }
+    }
+    return null;
   }
 
   /// Global lesson order for unlock rules within each course.

@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../app.dart';
+import '../../core/models/user_role.dart';
+import '../../core/routes/app_routes.dart';
 import '../../core/services/gamification.dart';
+import '../../widgets/learning_companion.dart';
 
 class LessonResultsScreen extends StatefulWidget {
   const LessonResultsScreen({
@@ -36,16 +39,39 @@ class _LessonResultsScreenState extends State<LessonResultsScreen> {
       _handled = true;
       _invalidSession = true;
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted) context.go('/home');
+        if (mounted) {
+          context.go(AppRoutes.homeForRole(context.app.userRole == UserRole.teacher));
+        }
       });
       return;
     }
 
-    if (app.activeLessonId != widget.lessonId || app.activeLessonAnswers.isEmpty) {
+    if (lesson.exercises.isEmpty) {
+      _handled = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        await app.completeLessonSession(
+          lessonId: widget.lessonId,
+          estimatedMinutes: lesson.estimatedMinutes,
+          correctCount: 0,
+          totalQuestions: 0,
+        );
+        app.clearLessonAttempt();
+        if (mounted) setState(() {});
+      });
+      return;
+    }
+
+    final sessionOk = app.activeLessonId == widget.lessonId &&
+        app.activeLessonAnswers.isNotEmpty &&
+        app.activeLessonAnswers.length == lesson.exercises.length;
+
+    if (!sessionOk) {
       _handled = true;
       _invalidSession = true;
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted) context.go('/home');
+        if (mounted) {
+          context.go(AppRoutes.homeForRole(context.app.userRole == UserRole.teacher));
+        }
       });
       return;
     }
@@ -54,9 +80,6 @@ class _LessonResultsScreenState extends State<LessonResultsScreen> {
 
     _correct = app.activeCorrectCount;
     _total = app.activeLessonAnswers.length;
-    if (_total == 0) {
-      _total = lesson.exercises.length;
-    }
 
     var xpGain = 0;
     for (var i = 0; i < _correct; i++) {
@@ -79,11 +102,45 @@ class _LessonResultsScreenState extends State<LessonResultsScreen> {
     });
   }
 
+  void _goHome(BuildContext context) {
+    final teacher = context.app.userRole == UserRole.teacher;
+    context.go(AppRoutes.homeForRole(teacher));
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_invalidSession) {
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
+      return Scaffold(
+        appBar: AppBar(title: const Text('Práctica')),
+        body: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Icon(Icons.hourglass_disabled_outlined, size: 48),
+              const SizedBox(height: 16),
+              Text(
+                'No hay una sesión de práctica activa para esta lección.',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Abre la lección, pulsa «Practicar» y responde los ejercicios en orden. Evita abrir esta pantalla desde un enlace guardado sin haber iniciado la práctica.',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+              ),
+              const SizedBox(height: 24),
+              FilledButton(
+                onPressed: () => _goHome(context),
+                child: const Text('Ir al inicio'),
+              ),
+            ],
+          ),
+        ),
       );
     }
     final perfect = _total > 0 && _correct == _total;
@@ -96,6 +153,14 @@ class _LessonResultsScreenState extends State<LessonResultsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            LearningCompanion(
+              mood: perfect ? CompanionMood.success : CompanionMood.idle,
+              message: perfect
+                  ? '¡Lección perfecta! Pibo está orgulloso.'
+                  : 'Buen trabajo. Revisa la teoría si algo costó más.',
+              compact: true,
+            ),
+            const SizedBox(height: 16),
             Text(
               'Lección completada',
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
@@ -139,15 +204,14 @@ class _LessonResultsScreenState extends State<LessonResultsScreen> {
             ),
             const Spacer(),
             FilledButton(
-              onPressed: () {
-                context.go('/home');
-              },
+              onPressed: () => _goHome(context),
               child: const Text('Volver al inicio'),
             ),
             const SizedBox(height: 8),
             OutlinedButton(
               onPressed: () {
-                context.go('/path');
+                final teacher = context.app.userRole == UserRole.teacher;
+                context.go(teacher ? AppRoutes.tDashboard : AppRoutes.sPath);
               },
               child: const Text('Ir a la ruta'),
             ),

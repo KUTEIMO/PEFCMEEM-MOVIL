@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'app.dart';
-import 'app_state.dart';
+import 'bootstrap_app.dart';
 
-Future<void> main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  final appState = AppState();
-  await appState.init();
-  runApp(PefcmeemApp(appState: appState));
+  runApp(const PefcmeemBootstrap());
 }

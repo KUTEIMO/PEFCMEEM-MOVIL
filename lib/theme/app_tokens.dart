@@ -33,30 +33,30 @@ class AppTokens extends ThemeExtension<AppTokens> {
 
   static const AppTokens light = AppTokens(
     radiusSm: 10,
-    radiusMd: 14,
-    radiusLg: 20,
-    radiusXl: 28,
+    radiusMd: 16,
+    radiusLg: 22,
+    radiusXl: 30,
     motionFast: Duration(milliseconds: 180),
     motionMedium: Duration(milliseconds: 280),
     motionSlow: Duration(milliseconds: 420),
     courseCardElevation: 0.5,
     challengeCardBorderWidth: 1,
-    heroGradientStart: Color(0xFFE8EDFF),
-    heroGradientEnd: Color(0xFFF4F6FB),
+    heroGradientStart: Color(0xFFD4ECEF),
+    heroGradientEnd: Color(0xFFF2F7F8),
   );
 
   static const AppTokens dark = AppTokens(
     radiusSm: 10,
-    radiusMd: 14,
-    radiusLg: 20,
-    radiusXl: 28,
+    radiusMd: 16,
+    radiusLg: 22,
+    radiusXl: 30,
     motionFast: Duration(milliseconds: 180),
     motionMedium: Duration(milliseconds: 280),
     motionSlow: Duration(milliseconds: 420),
     courseCardElevation: 0,
     challengeCardBorderWidth: 1,
-    heroGradientStart: Color(0xFF1A2344),
-    heroGradientEnd: Color(0xFF0F172A),
+    heroGradientStart: Color(0xFF153A42),
+    heroGradientEnd: Color(0xFF0C1A1E),
   );
 
   @override

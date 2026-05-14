@@ -1,8 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'app_state.dart';
-import 'router/app_router.dart';
 import 'theme/app_theme.dart';
+import 'widgets/constrained_app_root.dart';
 
 /// Expone [AppState] a todo el árbol bajo [MaterialApp].
 class AppContainer extends InheritedWidget {
@@ -41,12 +42,21 @@ class PefcmeemApp extends StatelessWidget {
         return AppContainer(
           appState: appState,
           child: MaterialApp.router(
-            title: 'PEFCMEEM',
+            title: 'PEFCMEEM · Domina las matemáticas',
             debugShowCheckedModeBanner: false,
             theme: buildLightTheme(),
             darkTheme: buildDarkTheme(),
             themeMode: appState.themeMode,
-            routerConfig: createAppRouter(appState),
+            routerConfig: appState.router,
+            scrollBehavior: const MaterialScrollBehavior().copyWith(
+              dragDevices: {
+                PointerDeviceKind.touch,
+                PointerDeviceKind.mouse,
+                PointerDeviceKind.stylus,
+                PointerDeviceKind.trackpad,
+              },
+            ),
+            builder: (context, child) => ConstrainedAppRoot(child: child),
           ),
         );
       },

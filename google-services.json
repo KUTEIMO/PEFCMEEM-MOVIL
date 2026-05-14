@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1084677395538",
+    "project_id": "pefcmeem-633d9",
+    "storage_bucket": "pefcmeem-633d9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084677395538:android:5e11b2d4ba3cc367417b8b",
+        "android_client_info": {
+          "package_name": "com.pefcmeem.app.pefcmeem"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwGUFNw6e9tmHVXi992N_YBREKt9TZUp8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

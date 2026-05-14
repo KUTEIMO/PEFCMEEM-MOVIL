@@ -1,21 +1,59 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class MainShell extends StatelessWidget {
-  const MainShell({required this.navigationShell, super.key});
+import '../../app.dart';
+import '../../widgets/companion_dock.dart';
+import 'web_shell.dart';
+
+class StudentShell extends StatefulWidget {
+  const StudentShell({required this.navigationShell, super.key});
 
   final StatefulNavigationShell navigationShell;
 
   @override
+  State<StudentShell> createState() => _StudentShellState();
+}
+
+class _StudentShellState extends State<StudentShell> {
+  String? _lastPath;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final path = GoRouterState.of(context).uri.path;
+    if (path != _lastPath) {
+      _lastPath = path;
+      context.app.updateCompanionForRoute(path);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (kIsWeb) {
+      return WebStudentShell(navigationShell: widget.navigationShell);
+    }
     return Scaffold(
-      body: navigationShell,
+      body: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          RepaintBoundary(
+            child: widget.navigationShell,
+          ),
+          Positioned(
+            left: 10,
+            right: 10,
+            bottom: 78,
+            child: const CompanionDock(),
+          ),
+        ],
+      ),
       bottomNavigationBar: NavigationBar(
-        selectedIndex: navigationShell.currentIndex,
+        selectedIndex: widget.navigationShell.currentIndex,
         onDestinationSelected: (index) {
-          navigationShell.goBranch(
+          widget.navigationShell.goBranch(
             index,
-            initialLocation: index == navigationShell.currentIndex,
+            initialLocation: index == widget.navigationShell.currentIndex,
           );
         },
         destinations: const [

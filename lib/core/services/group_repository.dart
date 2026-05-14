@@ -23,23 +23,30 @@ class GroupInfo {
     required this.name,
     required this.code,
     required this.teacherUid,
+    required this.schoolName,
   });
 
   final String id;
   final String name;
   final String code;
   final String teacherUid;
+  final String schoolName;
 }
 
 class GroupRepository {
   GroupRepository({FirebaseFirestore? firestore, FirebaseAuth? auth})
-      : _db = firestore ?? FirebaseFirestore.instance,
-        _auth = auth ?? FirebaseAuth.instance;
+      : _firestoreOverride = firestore,
+        _authOverride = auth;
 
-  final FirebaseFirestore _db;
-  final FirebaseAuth _auth;
+  final FirebaseFirestore? _firestoreOverride;
+  final FirebaseAuth? _authOverride;
 
-  bool get _ok => FirebaseBootstrap.isReady && _auth.currentUser != null;
+  FirebaseFirestore get _db => _firestoreOverride ?? FirebaseFirestore.instance;
+
+  FirebaseAuth get _auth => _authOverride ?? FirebaseAuth.instance;
+
+  bool get _ok =>
+      FirebaseBootstrap.firebaseAppReady && _auth.currentUser != null;
 
   CollectionReference<Map<String, dynamic>> get _groups =>
       _db.collection('groups');
@@ -61,7 +68,10 @@ class GroupRepository {
   }
 
   /// Crea un grupo; el usuario actual debe ser el docente (se guarda [teacherUid]).
-  Future<GroupInfo> createGroup({required String name}) async {
+  Future<GroupInfo> createGroup({
+    required String name,
+    required String schoolName,
+  }) async {
     if (!_ok) {
       throw StateError('Firebase no está listo. Configura firebase_options y google-services.');
     }
@@ -69,13 +79,21 @@ class GroupRepository {
     final code = await _uniqueCode();
     final doc = _groups.doc();
     final cleanName = name.trim().isEmpty ? 'Grupo' : name.trim();
+    final cleanSchool = schoolName.trim().isEmpty ? 'Colegio' : schoolName.trim();
     await doc.set({
       'name': cleanName,
       'code': code,
       'teacherUid': uid,
+      'schoolName': cleanSchool,
       'createdAt': FieldValue.serverTimestamp(),
     });
-    return GroupInfo(id: doc.id, name: cleanName, code: code, teacherUid: uid);
+    return GroupInfo(
+      id: doc.id,
+      name: cleanName,
+      code: code,
+      teacherUid: uid,
+      schoolName: cleanSchool,
+    );
   }
 
   /// Busca grupo por código y añade al usuario como miembro.
@@ -104,6 +122,7 @@ class GroupRepository {
         name: data['name'] as String? ?? 'Grupo',
         code: data['code'] as String? ?? code,
         teacherUid: teacherUid,
+        schoolName: data['schoolName'] as String? ?? '',
       );
     }
     final memberRef = doc.reference.collection('members').doc(uid);
@@ -119,6 +138,7 @@ class GroupRepository {
       name: data['name'] as String? ?? 'Grupo',
       code: data['code'] as String? ?? code,
       teacherUid: teacherUid,
+      schoolName: data['schoolName'] as String? ?? '',
     );
   }
 
@@ -181,6 +201,7 @@ class GroupRepository {
         name: m['name'] as String? ?? 'Grupo',
         code: m['code'] as String? ?? '',
         teacherUid: m['teacherUid'] as String? ?? '',
+        schoolName: m['schoolName'] as String? ?? '',
       );
     }).toList();
   }

@@ -143,7 +143,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                       final last = widget.exerciseIndex >= total - 1;
                       if (last) {
                         if (context.mounted) {
-                          context.go('/course/${widget.courseId}/lesson/${widget.lessonId}/results');
+                          context.push('/course/${widget.courseId}/lesson/${widget.lessonId}/results');
                         }
                       } else {
                         if (context.mounted) {

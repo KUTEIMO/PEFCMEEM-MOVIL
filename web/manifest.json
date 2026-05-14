@@ -1,11 +1,11 @@
 {
-    "name": "pefcmeem",
-    "short_name": "pefcmeem",
+    "name": "PEFCMEEM — Domina las matemáticas",
+    "short_name": "PEFCMEEM",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#0B3340",
+    "theme_color": "#0B3340",
+    "description": "PEFCMEEM — Domina las matemáticas. Plataforma educativa para Educación Media (grados 9, 10 y 11): rutas cortas, grupos y ranking.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

@@ -94,4 +94,50 @@ class ProgressStore {
     await saveCurrentGroupId(null);
     await saveCurrentGroupCode(null);
   }
+
+  /// Una sola llamada a [SharedPreferences.getInstance] para acelerar el arranque (sobre todo en web).
+  static Future<ProgressBootstrapSnapshot> loadBootstrapSnapshot() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    UserProgress progress;
+    final raw = prefs.getString(_keyProgress);
+    if (raw == null || raw.isEmpty) {
+      progress = UserProgress.initial();
+    } else {
+      try {
+        final map = jsonDecode(raw) as Map<String, dynamic>;
+        progress = UserProgress.fromJson(map);
+      } catch (_) {
+        progress = UserProgress.initial();
+      }
+    }
+
+    return ProgressBootstrapSnapshot(
+      progress: progress,
+      onboardingDone: prefs.getBool(_keyOnboarding) ?? false,
+      userRoleRaw: prefs.getString(_keyUserRole),
+      currentGroupId: prefs.getString(_keyGroupId),
+      currentGroupCode: prefs.getString(_keyGroupCode),
+      themeModeRaw: prefs.getString(_keyTheme),
+    );
+  }
+}
+
+/// Valores leídos juntos en el arranque.
+class ProgressBootstrapSnapshot {
+  const ProgressBootstrapSnapshot({
+    required this.progress,
+    required this.onboardingDone,
+    required this.userRoleRaw,
+    required this.currentGroupId,
+    required this.currentGroupCode,
+    required this.themeModeRaw,
+  });
+
+  final UserProgress progress;
+  final bool onboardingDone;
+  final String? userRoleRaw;
+  final String? currentGroupId;
+  final String? currentGroupCode;
+  final String? themeModeRaw;
 }

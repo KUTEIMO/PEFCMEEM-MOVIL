@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../app.dart';
+import '../../core/routes/app_routes.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   static const _avatarColors = <Color>[
-    Color(0xFF3A5BFF),
+    Color(0xFF2D3A8C),
     Color(0xFF22C55E),
     Color(0xFF7C3AED),
     Color(0xFFF97316),
@@ -103,13 +104,38 @@ class ProfileScreen extends StatelessWidget {
             }),
           ),
           const SizedBox(height: 28),
-          ListTile(
-            leading: const Icon(Icons.groups_2_outlined),
-            title: const Text('Vista docente (demo)'),
-            subtitle: const Text('Panel sobrio para seguimiento de grupo'),
-            trailing: const Icon(Icons.chevron_right_rounded),
-            onTap: () => context.push('/teacher'),
-          ),
+          if (app.currentGroupId != null) ...[
+            ListTile(
+              leading: const Icon(Icons.chat_bubble_outline_rounded),
+              title: const Text('Chat con mi grupo'),
+              subtitle: const Text('Mensajes con tu docente y compañeros'),
+              trailing: const Icon(Icons.chevron_right_rounded),
+              onTap: () => context.push(AppRoutes.groupChat(app.currentGroupId!)),
+            ),
+            ListTile(
+              leading: const Icon(Icons.emoji_events_outlined),
+              title: const Text('Grupo activo'),
+              subtitle: Text('Código: ${app.currentGroupCode ?? "—"}'),
+              trailing: TextButton(
+                onPressed: () async {
+                  await app.clearCurrentGroup();
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Saliste del grupo en este dispositivo')),
+                    );
+                  }
+                },
+                child: const Text('Salir'),
+              ),
+            ),
+          ] else
+            ListTile(
+              leading: const Icon(Icons.qr_code_2_outlined),
+              title: const Text('Unirse a un grupo'),
+              subtitle: const Text('Ranking en vivo con tu clase'),
+              trailing: const Icon(Icons.chevron_right_rounded),
+              onTap: () => context.push('/join-group'),
+            ),
         ],
       ),
     );

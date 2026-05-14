@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 /// Panel docente con datos semilla (ponencia).
 class TeacherScreen extends StatelessWidget {
   const TeacherScreen({super.key});
 
   static const _rows = <Map<String, String>>[
+    {'est': 'Laura Vega', 'grado': '9', 'prec': '79%', 'debil': 'Álgebra', 'xp': '910'},
     {'est': 'Ana Gómez', 'grado': '11', 'prec': '82%', 'debil': 'Geometría', 'xp': '1240'},
     {'est': 'Carlos Ruiz', 'grado': '10', 'prec': '74%', 'debil': 'Álgebra', 'xp': '980'},
     {'est': 'María López', 'grado': '11', 'prec': '88%', 'debil': 'Estadística', 'xp': '1410'},
@@ -28,6 +30,16 @@ class TeacherScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Card(
+                      child: ListTile(
+                        leading: const Icon(Icons.class_outlined),
+                        title: const Text('Grupos con código (Firebase)'),
+                        subtitle: const Text('Crea códigos y QR; el ranking se actualiza en vivo'),
+                        trailing: const Icon(Icons.chevron_right_rounded),
+                        onTap: () => context.push('/teacher/groups'),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
                     Text(
                       'Seguimiento de grupo',
                       style: Theme.of(context).textTheme.headlineSmall?.copyWith(

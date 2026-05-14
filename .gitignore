@@ -1,3 +1,7 @@
+# Local tooling / caches
+.cursor/
+.firebase/
+
 # Miscellaneous
 *.class
 *.log

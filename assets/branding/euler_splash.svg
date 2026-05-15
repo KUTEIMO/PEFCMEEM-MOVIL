@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 420" width="400" height="420">
+  <title>EULER splash</title>
+  <circle cx="52" cy="58" r="36" fill="none" stroke="#2A9D8F" stroke-width="1.2" opacity="0.2"/>
+  <circle cx="348" cy="72" r="28" fill="none" stroke="#E07A5F" stroke-width="1.2" opacity="0.18"/>
+  <path d="M24 320 Q120 260 200 300 T376 310" fill="none" stroke="#2A9D8F" stroke-width="1.5" opacity="0.14"/>
+  <text x="48" y="118" fill="#FFFFFF" opacity="0.1" font-family="Arial,sans-serif" font-size="28">&#960;</text>
+  <text x="318" y="140" fill="#FFFFFF" opacity="0.09" font-family="Arial,sans-serif" font-size="22">&#8721;</text>
+  <text x="330" y="330" fill="#E07A5F" opacity="0.12" font-family="Arial,sans-serif" font-size="20">&#8730;</text>
+  <rect x="36" y="40" width="328" height="340" rx="36" fill="#0A2B35" stroke="#E07A5F" stroke-width="2.5"/>
+  <circle cx="200" cy="168" r="78" fill="none" stroke="#2A9D8F" stroke-width="4.5"/>
+  <circle cx="200" cy="168" r="62" fill="#FFFFFF" opacity="0.05"/>
+  <path d="M200,90 A78,78,0,0,1,268,128" fill="none" stroke="#E07A5F" stroke-width="4.5" stroke-linecap="round"/>
+  <text x="200" y="192" text-anchor="middle" fill="#FFFFFF" font-family="Arial,Helvetica,sans-serif" font-size="80" font-style="italic">e</text>
+  <text x="200" y="278" text-anchor="middle" fill="#E07A5F" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="bold" letter-spacing="7">EULER</text>
+  <text x="200" y="312" text-anchor="middle" fill="#E8F4F6" font-family="Arial,Helvetica,sans-serif" font-size="15" font-weight="bold">Domina las matem&#225;ticas.</text>
+  <line x1="88" y1="334" x2="312" y2="334" stroke="#FFFFFF" opacity="0.2" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="176" cy="362" r="5" fill="#E07A5F"/>
+  <circle cx="200" cy="362" r="5" fill="#FFFFFF" opacity="0.85"/>
+  <circle cx="224" cy="362" r="5" fill="#2A9D8F"/>
+</svg>

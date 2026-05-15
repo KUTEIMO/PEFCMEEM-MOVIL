@@ -1,4 +1,4 @@
-# PEFCMEEM: Plataforma Educativa para el Fortalecimiento de Competencias Matemáticas en Estudiantes de Educación Media
+# EULER: Plataforma educativa de matemáticas para Estudiantes de Educación Media
 
 *(El eslogan «Domina las matemáticas.» forma parte del logotipo en la aplicación.)*
 
@@ -21,7 +21,7 @@
 
 La educación matemática en Colombia enfrenta un desafío significativo, evidenciado en los resultados de las pruebas estandarizadas como el ICFES. Las deficiencias en conceptos fundamentales de matemáticas, álgebra, estadística y geometría no solo afectan el desempeño académico inmediato, sino que generan barreras para el acceso y éxito en la educación superior.
 
-En este contexto, surge **PEFCMEEM** como una solución tecnológica que combina pedagogía con gamificación para transformar la manera en que los estudiantes aprenden matemáticas. Esta plataforma digital (aplicación móvil y web) busca democratizar el acceso a recursos educativos de calidad, aprovechando el potencial de las tecnologías móviles y las metodologías de aprendizaje lúdico.
+En este contexto, surge **EULER** como una solución tecnológica que combina pedagogía con gamificación para transformar la manera en que los estudiantes aprenden matemáticas. Esta plataforma digital (aplicación móvil y web) busca democratizar el acceso a recursos educativos de calidad, aprovechando el potencial de las tecnologías móviles y las metodologías de aprendizaje lúdico.
 
 ---
 
@@ -173,7 +173,7 @@ Se implementará un sistema de recordatorios que programan repasos de conceptos 
 
 ## 7. Conclusión del Documento
 
-Este proyecto representa una oportunidad tangible de impacto educativo mediante tecnología. La combinación de rigor académico (validación con Universidad Simón Bolívar), metodología pedagógica probada (gamificación + micro-learning) y viabilidad técnica, posiciona a **PEFCMEEM** como una solución escalable al problema del bajo rendimiento matemático en la región.
+Este proyecto representa una oportunidad tangible de impacto educativo mediante tecnología. La combinación de rigor académico (validación con Universidad Simón Bolívar), metodología pedagógica probada (gamificación + micro-learning) y viabilidad técnica, posiciona a **EULER** como una solución escalable al problema del bajo rendimiento matemático en la región.
 
 La fase actual de diseño de material mediante monitorías estudiantiles es crucial, ya que garantiza que el contenido no solo sea tecnológicamente atractivo, sino pedagógicamente sólido y contextualizado a las necesidades reales de los estudiantes de Cúcuta.
 
@@ -194,4 +194,4 @@ La fase actual de diseño de material mediante monitorías estudiantiles es cruc
 
 ---
 
-*Documento de proyecto — PEFCMEEM. **Domina las matemáticas.***
+*Documento de proyecto — EULER. **Domina las matemáticas.***

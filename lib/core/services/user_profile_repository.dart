@@ -39,6 +39,7 @@ class UserProfileRepository {
         'email': email.trim(),
         'displayName': displayName.trim().isEmpty ? 'Usuario' : displayName.trim(),
         'role': role.storageValue,
+        'onboardingComplete': false,
         if (role == UserRole.teacher &&
             cleanSchool != null &&
             cleanSchool.isNotEmpty)
@@ -59,5 +60,10 @@ class UserProfileRepository {
     if (!FirebaseBootstrap.firebaseInitialized) return;
     final d = displayName.trim().isEmpty ? 'Usuario' : displayName.trim();
     await _ref(uid).set({'displayName': d}, SetOptions(merge: true));
+  }
+
+  Future<void> setOnboardingComplete(String uid) async {
+    if (!FirebaseBootstrap.firebaseInitialized) return;
+    await _ref(uid).set({'onboardingComplete': true}, SetOptions(merge: true));
   }
 }

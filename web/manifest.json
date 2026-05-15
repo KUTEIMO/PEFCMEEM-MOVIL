@@ -1,11 +1,11 @@
 {
-    "name": "PEFCMEEM — Domina las matemáticas",
-    "short_name": "PEFCMEEM",
+    "name": "EULER — Domina las matemáticas",
+    "short_name": "EULER",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0B3340",
     "theme_color": "#0B3340",
-    "description": "PEFCMEEM — Domina las matemáticas. Plataforma educativa para Educación Media (grados 9, 10 y 11): rutas cortas, grupos y ranking.",
+    "description": "EULER — Domina las matemáticas. Plataforma educativa para Educación Media (grados 9, 10 y 11): rutas cortas, grupos y ranking.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

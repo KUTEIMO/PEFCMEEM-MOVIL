@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -9,7 +10,9 @@ import '../../core/routes/app_routes.dart';
 import '../../core/utils/auth_messages.dart';
 
 class EmailAuthScreen extends StatefulWidget {
-  const EmailAuthScreen({super.key});
+  const EmailAuthScreen({super.key, this.initialTabRegister = false});
+
+  final bool initialTabRegister;
 
   @override
   State<EmailAuthScreen> createState() => _EmailAuthScreenState();
@@ -30,7 +33,11 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> with SingleTickerProv
   @override
   void initState() {
     super.initState();
-    _tab = TabController(length: 2, vsync: this);
+    _tab = TabController(
+      length: 2,
+      vsync: this,
+      initialIndex: widget.initialTabRegister ? 1 : 0,
+    );
   }
 
   @override
@@ -141,10 +148,17 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> with SingleTickerProv
     final scheme = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
+        leading: kIsWeb
+            ? IconButton(
+                icon: const Icon(Icons.arrow_back_rounded),
+                tooltip: 'Volver al inicio',
+                onPressed: () => context.go(AppRoutes.landing),
+              )
+            : null,
         title: Row(
           children: [
             SvgPicture.asset(
-              'assets/branding/pefcmeem_mark.svg',
+              BrandingStrings.assetMarkSvg,
               height: 30,
               fit: BoxFit.contain,
               excludeFromSemantics: true,
@@ -179,19 +193,23 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> with SingleTickerProv
           ],
         ),
       ),
-      body: TabBarView(
-        controller: _tab,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          _LoginTab(
-            email: _email,
-            password: _password,
-            busy: _busy,
-            onSubmit: _login,
-            onAbout: () => context.push(AppRoutes.about),
-          ),
-          ListView(
-            padding: const EdgeInsets.all(20),
-            children: [
+          Expanded(
+            child: TabBarView(
+              controller: _tab,
+              children: [
+                _LoginTab(
+                  email: _email,
+                  password: _password,
+                  busy: _busy,
+                  onSubmit: _login,
+                  onAbout: () => context.push(AppRoutes.about),
+                ),
+                ListView(
+                  padding: const EdgeInsets.all(20),
+                  children: [
               Text(
                 'Crea tu cuenta',
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),
@@ -260,13 +278,16 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> with SingleTickerProv
                 ),
               ),
               const SizedBox(height: 24),
-              FilledButton(
-                onPressed: _busy ? null : _register,
-                child: _busy
-                    ? const SizedBox(height: 22, width: 22, child: CircularProgressIndicator(strokeWidth: 2))
-                    : const Text('Crear cuenta'),
-              ),
-            ],
+                    FilledButton(
+                      onPressed: _busy ? null : _register,
+                      child: _busy
+                          ? const SizedBox(height: 22, width: 22, child: CircularProgressIndicator(strokeWidth: 2))
+                          : const Text('Crear cuenta'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),

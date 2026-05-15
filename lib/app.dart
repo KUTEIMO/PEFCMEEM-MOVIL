@@ -42,7 +42,7 @@ class PefcmeemApp extends StatelessWidget {
         return AppContainer(
           appState: appState,
           child: MaterialApp.router(
-            title: 'PEFCMEEM · Domina las matemáticas',
+            title: 'EULER · Domina las matemáticas',
             debugShowCheckedModeBanner: false,
             theme: buildLightTheme(),
             darkTheme: buildDarkTheme(),

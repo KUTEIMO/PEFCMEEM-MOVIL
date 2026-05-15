@@ -1,4 +1,4 @@
-# Firebase y hosting web — PEFCMEEM (*Domina las matemáticas.*)
+# Firebase y hosting web — EULER (*Domina las matemáticas.*)
 
 Esta guía conecta el proyecto Flutter con **Firebase Authentication**, **Cloud Firestore** (grupos + ranking) y **Firebase Hosting** (build web). El borrador académico del proyecto está en **`docs/DOCUMENTO_PROYECTO_PEFCMEEM.md`** (y en la app: *Ajustes → Sobre*). No pegues **claves de cuenta de servicio** en chats ni las subas al repositorio público.
 

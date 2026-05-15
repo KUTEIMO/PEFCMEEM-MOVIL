@@ -85,7 +85,7 @@ class _AboutScreenState extends State<AboutScreen> {
               const SizedBox(height: 14),
               Center(
                 child: SvgPicture.asset(
-                  'assets/branding/pefcmeem_mark.svg',
+                  BrandingStrings.assetMarkSvg,
                   height: 44,
                   excludeFromSemantics: true,
                 ),

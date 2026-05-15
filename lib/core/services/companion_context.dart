@@ -143,7 +143,7 @@ abstract final class CompanionContextLogic {
       mood: CompanionMood.idle,
       shortTip: 'Soy Pibo: te guío según la pantalla en la que estés.',
       longTip:
-          'PEFCMEEM — Domina las matemáticas. — combina rutas cortas con grupos y ranking. Usa el menú inferior para moverte.',
+          'EULER — Domina las matemáticas. — combina rutas cortas con grupos y ranking. Usa el menú inferior para moverte.',
     );
   }
 }

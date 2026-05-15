@@ -31,6 +31,6 @@ void main() {
     await tester.pumpWidget(PefcmeemApp(appState: appState));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 200));
-    expect(find.textContaining('PEFC'), findsWidgets);
+    expect(find.textContaining('EULER'), findsWidgets);
   });
 }

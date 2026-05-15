@@ -1,5 +1,5 @@
 name: pefcmeem
-description: "PEFCMEEM — Domina las matemáticas. Plataforma educativa para Educación Media (9–11)."
+description: "EULER — Domina las matemáticas. Plataforma educativa para Educación Media (9–11)."
 publish_to: "none"
 
 version: 2.0.0+2
@@ -29,17 +29,19 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   firebase_core_platform_interface: ^6.0.3
 
+# Solo splash Flutter (AppSplashScreen). Sin splash nativo generado.
 flutter_native_splash:
-  color: "#0B3340"
-  android_12:
-    color: "#0B3340"
-    icon_background_color: "#E07A5F"
+  color: "#0A2B35"
+  android: false
+  ios: false
   web: false
 
 flutter:
   uses-material-design: true
   assets:
     - assets/courses.json
-    - assets/branding/pefcmeem_splash.svg
-    - assets/branding/pefcmeem_mark.svg
+    - assets/branding/euler_splash.svg
+    - assets/branding/euler_mark.svg
+    - assets/branding/euler_logo_stand.svg
+    - assets/branding/euler_logo_lockup.svg
     - assets/docs/documento_pefcmeem.md

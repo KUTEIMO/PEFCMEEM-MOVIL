@@ -29,7 +29,7 @@ class HomeScreen extends StatelessWidget {
         title: Row(
           children: [
             SvgPicture.asset(
-              'assets/branding/pefcmeem_mark.svg',
+              BrandingStrings.assetMarkSvg,
               height: 26,
               fit: BoxFit.contain,
               excludeFromSemantics: true,

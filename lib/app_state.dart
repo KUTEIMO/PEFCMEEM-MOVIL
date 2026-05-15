@@ -75,7 +75,7 @@ class AppState extends ChangeNotifier {
   CompanionMood companionMood = CompanionMood.idle;
   String companionShortTip = 'Soy Pibo: te acompaño en cada pantalla.';
   String companionLongTip =
-      'PEFCMEEM — Domina las matemáticas. — combina rutas cortas con grupos y ranking. Toca este recuadro cuando quieras un consejo más largo.';
+      'EULER — Domina las matemáticas. — combina rutas cortas con grupos y ranking. Toca este recuadro cuando quieras un consejo más largo.';
 
   bool get isReady => _ready;
 
@@ -219,6 +219,10 @@ class AppState extends ChangeNotifier {
           progress.displayName = doc.displayName;
           await ProgressStore.saveProgress(progress);
         }
+        if (doc.onboardingComplete && !onboardingDone) {
+          onboardingDone = true;
+          await ProgressStore.setOnboardingDone(true);
+        }
       }
     } catch (e) {
       profileSyncError = e.toString();
@@ -308,6 +312,12 @@ class AppState extends ChangeNotifier {
     onboardingDone = true;
     await ProgressStore.setOnboardingDone(true);
     await ProgressStore.saveProgress(progress);
+    final u = firebaseUser ?? _auth.currentUser;
+    if (u != null) {
+      try {
+        await _profiles.setOnboardingComplete(u.uid);
+      } catch (_) {}
+    }
     notifyListeners();
   }
 
@@ -386,6 +396,7 @@ class AppState extends ChangeNotifier {
     if (u != null && !u.isAnonymous) {
       try {
         await _profiles.updateDisplayName(u.uid, progress.displayName);
+        await _profiles.setOnboardingComplete(u.uid);
       } catch (_) {}
     }
     notifyListeners();

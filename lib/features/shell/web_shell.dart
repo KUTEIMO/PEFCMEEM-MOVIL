@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-/// Navegación tipo web (rail / cajón), sin barra inferior ni mascota flotante.
+import 'web_app_bar_actions.dart';
+
+/// Navegación tipo web (rail / cajón). Una sola barra superior por pantalla (la del contenido),
+/// sin engranaje duplicado en el shell.
 class WebStudentShell extends StatefulWidget {
   const WebStudentShell({required this.navigationShell, super.key});
 
@@ -30,66 +33,42 @@ class _WebStudentShellState extends State<WebStudentShell> {
         if (narrow) {
           return Scaffold(
             key: _scaffoldKey,
-            appBar: AppBar(
-              title: const Text('PEFCMEEM'),
-              leading: IconButton(
-                icon: const Icon(Icons.menu_rounded),
-                onPressed: () => _scaffoldKey.currentState?.openDrawer(),
-              ),
-              actions: [
-                IconButton(
-                  tooltip: 'Ajustes',
-                  icon: const Icon(Icons.settings_outlined),
-                  onPressed: () => context.push('/settings'),
-                ),
-              ],
-            ),
-            drawer: Drawer(
-              child: ListView(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                children: [
-                  DrawerHeader(
-                    margin: EdgeInsets.zero,
-                    child: Text(
-                      'Menú',
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
+            drawer: _buildDrawer(context),
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Material(
+                  color: Theme.of(context).colorScheme.surface,
+                  elevation: 0,
+                  child: SafeArea(
+                    bottom: false,
+                    child: SizedBox(
+                      height: kToolbarHeight,
+                      child: Row(
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.menu_rounded),
+                            tooltip: 'Menú',
+                            onPressed: () => _scaffoldKey.currentState?.openDrawer(),
+                          ),
+                          Text(
+                            'EULER',
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  for (var i = 0; i < _destinations.length; i++)
-                    ListTile(
-                      leading: Icon(
-                        widget.navigationShell.currentIndex == i
-                            ? _destinations[i].selectedIcon
-                            : _destinations[i].icon,
-                      ),
-                      title: Text(_destinations[i].label),
-                      selected: widget.navigationShell.currentIndex == i,
-                      onTap: () {
-                        Navigator.of(context).pop();
-                        widget.navigationShell.goBranch(
-                          i,
-                          initialLocation: i == widget.navigationShell.currentIndex,
-                        );
-                      },
-                    ),
-                ],
-              ),
+                ),
+                Expanded(child: widget.navigationShell),
+              ],
             ),
-            body: widget.navigationShell,
           );
         }
 
         return Scaffold(
-          appBar: AppBar(
-            title: const Text('PEFCMEEM'),
-            actions: [
-              IconButton(
-                tooltip: 'Ajustes',
-                icon: const Icon(Icons.settings_outlined),
-                onPressed: () => context.push('/settings'),
-              ),
-            ],
-          ),
           body: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -117,6 +96,41 @@ class _WebStudentShellState extends State<WebStudentShell> {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildDrawer(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        children: [
+          DrawerHeader(
+            margin: EdgeInsets.zero,
+            child: Text(
+              'Menú',
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
+            ),
+          ),
+          for (var i = 0; i < _destinations.length; i++)
+            ListTile(
+              leading: Icon(
+                widget.navigationShell.currentIndex == i
+                    ? _destinations[i].selectedIcon
+                    : _destinations[i].icon,
+              ),
+              title: Text(_destinations[i].label),
+              selected: widget.navigationShell.currentIndex == i,
+              onTap: () {
+                Navigator.of(context).pop();
+                widget.navigationShell.goBranch(
+                  i,
+                  initialLocation: i == widget.navigationShell.currentIndex,
+                );
+              },
+            ),
+          const WebDrawerFooter(),
+        ],
+      ),
     );
   }
 }
@@ -148,66 +162,42 @@ class _WebTeacherShellState extends State<WebTeacherShell> {
         if (narrow) {
           return Scaffold(
             key: _scaffoldKey,
-            appBar: AppBar(
-              title: const Text('PEFCMEEM · Docente'),
-              leading: IconButton(
-                icon: const Icon(Icons.menu_rounded),
-                onPressed: () => _scaffoldKey.currentState?.openDrawer(),
-              ),
-              actions: [
-                IconButton(
-                  tooltip: 'Ajustes',
-                  icon: const Icon(Icons.settings_outlined),
-                  onPressed: () => context.push('/settings'),
-                ),
-              ],
-            ),
-            drawer: Drawer(
-              child: ListView(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                children: [
-                  DrawerHeader(
-                    margin: EdgeInsets.zero,
-                    child: Text(
-                      'Menú docente',
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
+            drawer: _buildDrawer(context),
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Material(
+                  color: Theme.of(context).colorScheme.surface,
+                  elevation: 0,
+                  child: SafeArea(
+                    bottom: false,
+                    child: SizedBox(
+                      height: kToolbarHeight,
+                      child: Row(
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.menu_rounded),
+                            tooltip: 'Menú',
+                            onPressed: () => _scaffoldKey.currentState?.openDrawer(),
+                          ),
+                          Text(
+                            'EULER · Docente',
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  for (var i = 0; i < _destinations.length; i++)
-                    ListTile(
-                      leading: Icon(
-                        widget.navigationShell.currentIndex == i
-                            ? _destinations[i].selectedIcon
-                            : _destinations[i].icon,
-                      ),
-                      title: Text(_destinations[i].label),
-                      selected: widget.navigationShell.currentIndex == i,
-                      onTap: () {
-                        Navigator.of(context).pop();
-                        widget.navigationShell.goBranch(
-                          i,
-                          initialLocation: i == widget.navigationShell.currentIndex,
-                        );
-                      },
-                    ),
-                ],
-              ),
+                ),
+                Expanded(child: widget.navigationShell),
+              ],
             ),
-            body: widget.navigationShell,
           );
         }
 
         return Scaffold(
-          appBar: AppBar(
-            title: const Text('PEFCMEEM · Docente'),
-            actions: [
-              IconButton(
-                tooltip: 'Ajustes',
-                icon: const Icon(Icons.settings_outlined),
-                onPressed: () => context.push('/settings'),
-              ),
-            ],
-          ),
           body: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -235,6 +225,41 @@ class _WebTeacherShellState extends State<WebTeacherShell> {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildDrawer(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        children: [
+          DrawerHeader(
+            margin: EdgeInsets.zero,
+            child: Text(
+              'Menú docente',
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
+            ),
+          ),
+          for (var i = 0; i < _destinations.length; i++)
+            ListTile(
+              leading: Icon(
+                widget.navigationShell.currentIndex == i
+                    ? _destinations[i].selectedIcon
+                    : _destinations[i].icon,
+              ),
+              title: Text(_destinations[i].label),
+              selected: widget.navigationShell.currentIndex == i,
+              onTap: () {
+                Navigator.of(context).pop();
+                widget.navigationShell.goBranch(
+                  i,
+                  initialLocation: i == widget.navigationShell.currentIndex,
+                );
+              },
+            ),
+          const WebDrawerFooter(),
+        ],
+      ),
     );
   }
 }

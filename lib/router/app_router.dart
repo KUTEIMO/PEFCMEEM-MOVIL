@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -15,6 +16,7 @@ import '../features/groups/group_chat_screen.dart';
 import '../features/groups/join_group_screen.dart';
 import '../features/groups/teacher_groups_screen.dart';
 import '../features/home/home_screen.dart';
+import '../features/landing/web_landing_screen.dart';
 import '../features/lesson/exercise_screen.dart';
 import '../features/lesson/lesson_results_screen.dart';
 import '../features/lesson/lesson_theory_screen.dart';
@@ -31,6 +33,16 @@ import '../features/teacher/teacher_dashboard_screen.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 
+bool _isPublicPath(String loc) {
+  if (loc == AppRoutes.landing || loc == AppRoutes.auth || loc == AppRoutes.about) {
+    return true;
+  }
+  if (loc.startsWith('/course')) return true;
+  return false;
+}
+
+String _guestEntry() => kIsWeb ? AppRoutes.landing : AppRoutes.auth;
+
 String? _redirect(AppState appState, GoRouterState state) {
   final loc = state.matchedLocation;
 
@@ -39,18 +51,18 @@ String? _redirect(AppState appState, GoRouterState state) {
   }
 
   if (!FirebaseBootstrap.firebaseAppReady) {
-    if (loc == AppRoutes.auth || loc == AppRoutes.about) return null;
-    return AppRoutes.auth;
+    if (_isPublicPath(loc)) return null;
+    return _guestEntry();
   }
 
   final user = FirebaseAuth.instance.currentUser;
 
   if (user == null) {
-    if (loc == AppRoutes.auth || loc.startsWith('/course') || loc == AppRoutes.about) return null;
-    return AppRoutes.auth;
+    if (_isPublicPath(loc)) return null;
+    return _guestEntry();
   }
 
-  if (loc == AppRoutes.auth) {
+  if (loc == AppRoutes.landing || loc == AppRoutes.auth) {
     if (!appState.onboardingDone) return AppRoutes.onboarding;
     return AppRoutes.homeForRole(appState.userRole == UserRole.teacher);
   }
@@ -82,10 +94,15 @@ String? _redirect(AppState appState, GoRouterState state) {
 GoRouter createAppRouter(AppState appState) {
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
-    initialLocation: AppRoutes.auth,
+    initialLocation: kIsWeb ? AppRoutes.landing : AppRoutes.auth,
     refreshListenable: appState,
     redirect: (context, state) => _redirect(appState, state),
     routes: [
+      if (kIsWeb)
+        GoRoute(
+          path: AppRoutes.landing,
+          builder: (context, state) => const WebLandingScreen(),
+        ),
       GoRoute(
         parentNavigatorKey: _rootNavigatorKey,
         path: AppRoutes.about,
@@ -93,7 +110,9 @@ GoRouter createAppRouter(AppState appState) {
       ),
       GoRoute(
         path: AppRoutes.auth,
-        builder: (context, state) => const EmailAuthScreen(),
+        builder: (context, state) => EmailAuthScreen(
+          initialTabRegister: state.uri.queryParameters['tab'] == 'register',
+        ),
       ),
       GoRoute(
         path: AppRoutes.onboarding,

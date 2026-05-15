@@ -1,5 +1,8 @@
 /// Rutas v2: autenticación, shell estudiante (`/s/...`) y shell docente (`/t/...`).
 abstract final class AppRoutes {
+  /// Inicio web (landing). En móvil no se usa como pantalla principal.
+  static const landing = '/';
+
   static const auth = '/auth';
   static const onboarding = '/onboarding';
   static const about = '/about';

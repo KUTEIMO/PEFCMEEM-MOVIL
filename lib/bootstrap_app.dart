@@ -8,7 +8,6 @@ import 'app.dart';
 import 'app_state.dart';
 import 'core/services/firebase_bootstrap.dart';
 import 'features/splash/app_splash_screen.dart';
-import 'features/splash/web_bootstrap_loading_screen.dart';
 import 'router/app_router.dart';
 import 'theme/bootstrap_theme.dart';
 
@@ -124,7 +123,9 @@ class _PefcmeemBootstrapState extends State<PefcmeemBootstrap> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: buildBootstrapTheme(),
-      home: kIsWeb ? const WebBootstrapLoadingScreen() : const AppSplashScreen(),
+      home: kIsWeb
+          ? const ColoredBox(color: Color(0xFF0A2B35))
+          : const AppSplashScreen(),
     );
   }
 }

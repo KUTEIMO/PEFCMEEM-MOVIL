@@ -1,4 +1,4 @@
-# PEFCMEEM (móvil + web)
+# EULER (móvil + web)
 
 App Flutter con Firebase (Auth, Firestore, Hosting). Repositorio: [PEFCMEEM-MOVIL](https://github.com/KUTEIMO/PEFCMEEM-MOVIL).
 
@@ -32,26 +32,34 @@ Elige dispositivo, emulador o Chrome según el modo que uses en el IDE o con `-d
 
 ---
 
+## Documentación para presentación
+
+| Documento | Uso |
+|-----------|-----|
+| [docs/STORYTELLING_JURADO.md](docs/STORYTELLING_JURADO.md) | Guion oral para jurado (Cúcuta, ICFES, demo) |
+| [docs/DOCUMENTACION_TECNICA_PEFCMEEM.md](docs/DOCUMENTACION_TECNICA_PEFCMEEM.md) | Arquitectura, Firebase, build, troubleshooting |
+| [docs/DOCUMENTO_PROYECTO_PEFCMEEM.md](docs/DOCUMENTO_PROYECTO_PEFCMEEM.md) | Borrador académico completo |
+
 ## Web en producción (build + subir a Firebase Hosting)
 
-Desde la raíz del proyecto:
+**Recomendado (Windows):** compila, publica reglas de Firestore y sube Hosting en un paso:
+
+```powershell
+pwsh -File scripts/deploy_web.ps1
+```
+
+Manual:
 
 1. **Compilar** la web en modo release:
 
 ```bash
-flutter build web --release
+flutter build web --release --pwa-strategy none --no-wasm-dry-run
 ```
 
-2. **Publicar** el contenido de `build/web` en el sitio de Hosting del proyecto (ajusta el ID de sitio si en `firebase.json` / consola usas otro):
+2. **Publicar** hosting + reglas (sin instalar `firebase` global):
 
 ```bash
-npx -y firebase-tools@latest deploy --only hosting:pefcmeem-633d9-e5f18
-```
-
-3. **Reglas de Firestore** (cuando cambies `firestore.rules`):
-
-```bash
-npx -y firebase-tools@latest deploy --only firestore:rules
+npx -y firebase-tools@latest deploy --only firestore:rules,hosting:pefcmeem-633d9-e5f18
 ```
 
 Tras un despliegue correcto, el hosting queda en una URL del estilo:

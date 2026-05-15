@@ -7,6 +7,6 @@ Write-Host ">> flutter build web --release --pwa-strategy none --no-wasm-dry-run
 flutter build web --release --pwa-strategy none --no-wasm-dry-run
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-Write-Host ">> firebase deploy --only hosting:pefcmeem-633d9-e5f18" -ForegroundColor Cyan
-npx -y firebase-tools@latest deploy --only hosting:pefcmeem-633d9-e5f18
+Write-Host ">> firebase deploy firestore rules + hosting" -ForegroundColor Cyan
+npx -y firebase-tools@latest deploy --only firestore:rules,hosting:pefcmeem-633d9-e5f18
 exit $LASTEXITCODE

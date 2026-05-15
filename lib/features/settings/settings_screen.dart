@@ -135,7 +135,7 @@ class SettingsScreen extends StatelessWidget {
           ],
           ListTile(
             leading: const Icon(Icons.info_outline_rounded),
-            title: const Text('Sobre PEFCMEEM'),
+            title: const Text('Sobre EULER'),
             subtitle: const Text(
               'Domina las matemáticas. · Documento del proyecto, créditos y marca',
             ),

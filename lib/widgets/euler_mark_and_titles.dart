@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../core/branding_strings.dart';
 
 /// Cómo combinar logo SVG (incluye eslogan) con textos largos.
-enum PefcmeemBrandLayout {
+enum EulerBrandLayout {
   /// Solo bloque de marca + línea corta (splash).
   splash,
 
@@ -13,17 +13,17 @@ enum PefcmeemBrandLayout {
 }
 
 /// Marca plana (SVG sin degradados) + textos oficiales.
-class PefcmeemMarkAndTitles extends StatelessWidget {
-  const PefcmeemMarkAndTitles({
+class EulerMarkAndTitles extends StatelessWidget {
+  const EulerMarkAndTitles({
     super.key,
     this.compact = false,
     this.textAlign = TextAlign.center,
-    this.layout = PefcmeemBrandLayout.full,
+    this.layout = EulerBrandLayout.full,
   });
 
   final bool compact;
   final TextAlign textAlign;
-  final PefcmeemBrandLayout layout;
+  final EulerBrandLayout layout;
 
   static const _whiteSoft = Color(0xE6FFFFFF);
   static const _whiteMuted = Color(0xB3FFFFFF);
@@ -40,14 +40,14 @@ class PefcmeemMarkAndTitles extends StatelessWidget {
       children: [
         Center(
           child: SvgPicture.asset(
-            'assets/branding/pefcmeem_mark.svg',
+            BrandingStrings.assetMarkSvg,
             height: markH,
             fit: BoxFit.contain,
             excludeFromSemantics: true,
             placeholderBuilder: (_) => SizedBox(height: markH, width: markH * 5),
           ),
         ),
-        if (layout == PefcmeemBrandLayout.full) ...[
+        if (layout == EulerBrandLayout.full) ...[
           SizedBox(height: compact ? 14 : 18),
           Text(
             BrandingStrings.longName,

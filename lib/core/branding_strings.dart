@@ -21,9 +21,9 @@ abstract final class BrandingStrings {
   static const authorProgram = 'Estudiantes de Ingeniería de Sistemas';
   static const authorMeta = 'Febrero de 2026 · Cúcuta, Colombia';
 
-  /// APK Android en GitHub Releases (landing web).
+  /// APK Android en el repositorio (rama main, carpeta releases/).
   static const apkDownloadUrl =
-      'https://github.com/KUTEIMO/PEFCMEEM-MOVIL/releases/download/v2.0.0/app-release.apk';
+      'https://github.com/KUTEIMO/PEFCMEEM-MOVIL/raw/main/releases/app-release.apk';
 
   static const assetMarkSvg = 'assets/branding/euler_mark.svg';
   static const assetSplashSvg = 'assets/branding/euler_splash.svg';

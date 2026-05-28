@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 700" width="500" height="700">
+  <title>EULER - Domina las matematicas</title>
+  <rect width="500" height="700" rx="36" fill="#0A2B35"/>
+  <rect x="14" y="14" width="472" height="672" rx="28" fill="none" stroke="#E07A5F" stroke-width="2.5" opacity="0.85"/>
+  <path d="M48 520Q250 380 452 520" fill="none" stroke="#2A9D8F" stroke-width="1.5" opacity="0.18" stroke-linecap="round"/>
+  <g transform="translate(250,248)">
+    <circle r="118" fill="none" stroke="#2A9D8F" stroke-width="5"/>
+    <circle r="98" fill="#FFFFFF" opacity="0.04"/>
+    <path d="M0,-118A118,118,0,0,1,102,59" fill="none" stroke="#E07A5F" stroke-width="5" stroke-linecap="round"/>
+  </g>
+  <text x="250" y="272" text-anchor="middle" fill="#FFFFFF" font-family="Arial,Helvetica,sans-serif" font-size="108" font-style="italic">e</text>
+  <text x="250" y="430" text-anchor="middle" fill="#E07A5F" font-family="Arial,Helvetica,sans-serif" font-size="56" font-weight="bold" letter-spacing="8">EULER</text>
+  <text x="250" y="478" text-anchor="middle" fill="#E8F4F6" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="bold">Domina las matem&#225;ticas.</text>
+  <line x1="118" y1="508" x2="382" y2="508" stroke="#FFFFFF" opacity="0.22" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="250" y="548" text-anchor="middle" fill="#FFFFFF" opacity="0.72" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="bold">Educaci&#243;n Media &#183; Grados 9, 10 y 11</text>
+  <text x="250" y="578" text-anchor="middle" fill="#2A9D8F" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="bold" letter-spacing="1">RUTAS &#183; GRUPOS &#183; RANKING &#183; WEB Y M&#211;VIL</text>
+  <circle cx="218" cy="618" r="5" fill="#E07A5F"/>
+  <circle cx="250" cy="618" r="5" fill="#FFFFFF" opacity="0.85"/>
+  <circle cx="282" cy="618" r="5" fill="#2A9D8F"/>
+</svg>

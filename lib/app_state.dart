@@ -15,6 +15,7 @@ import 'core/services/course_repository.dart';
 import 'core/services/firebase_bootstrap.dart';
 import 'core/services/gamification.dart';
 import 'core/services/group_repository.dart';
+import 'core/services/progress_firestore_service.dart';
 import 'core/services/progress_store.dart';
 import 'core/services/user_profile_repository.dart';
 import 'widgets/learning_companion.dart';
@@ -73,7 +74,7 @@ class AppState extends ChangeNotifier {
   String? profileSyncError;
 
   CompanionMood companionMood = CompanionMood.idle;
-  String companionShortTip = 'Soy Pibo: te acompaño en cada pantalla.';
+  String companionShortTip = 'Soy Piko π: te acompaño en cada pantalla.';
   String companionLongTip =
       'EULER — Domina las matemáticas. — combina rutas cortas con grupos y ranking. Toca este recuadro cuando quieras un consejo más largo.';
 
@@ -143,6 +144,7 @@ class AppState extends ChangeNotifier {
         await _syncRemoteProfile();
         await ensureFirestoreUserProfileIfMissing();
         await FirebaseBootstrap.seedMetaBootstrapDoc();
+        await _syncLearningProgress();
       }
     }
 
@@ -198,11 +200,33 @@ class AppState extends ChangeNotifier {
         await _syncRemoteProfile();
         await ensureFirestoreUserProfileIfMissing();
         await FirebaseBootstrap.seedMetaBootstrapDoc();
+        await _syncLearningProgress();
       }
     } else {
       remoteProfile = null;
     }
     notifyListeners();
+  }
+
+  Future<void> _syncLearningProgress() async {
+    final u = firebaseUser ?? _auth.currentUser;
+    if (u == null || userRole != UserRole.student) return;
+    try {
+      progress = await ProgressFirestoreService.syncOnLogin(u.uid);
+      notifyListeners();
+    } catch (_) {
+      /* offline */
+    }
+  }
+
+  Future<void> _persistProgress() async {
+    await ProgressStore.saveProgress(progress);
+    final u = firebaseUser ?? _auth.currentUser;
+    if (u != null && userRole == UserRole.student) {
+      try {
+        await ProgressFirestoreService.push(u.uid, progress);
+      } catch (_) {}
+    }
   }
 
   Future<void> _syncRemoteProfile() async {
@@ -217,7 +241,7 @@ class AppState extends ChangeNotifier {
         await ProgressStore.saveUserRole(userRole.storageValue);
         if (doc.displayName.isNotEmpty) {
           progress.displayName = doc.displayName;
-          await ProgressStore.saveProgress(progress);
+          await _persistProgress();
         }
         if (doc.onboardingComplete && !onboardingDone) {
           onboardingDone = true;
@@ -294,7 +318,7 @@ class AppState extends ChangeNotifier {
     progress.displayName = displayName.trim().isEmpty
         ? (role == UserRole.teacher ? 'Docente' : 'Estudiante')
         : displayName.trim();
-    await ProgressStore.saveProgress(progress);
+    await _persistProgress();
     firebaseUser = u;
     profileSyncError = null;
     await _syncRemoteProfile();
@@ -311,7 +335,7 @@ class AppState extends ChangeNotifier {
     progress.goalLabel = 'Seguimiento de grupo';
     onboardingDone = true;
     await ProgressStore.setOnboardingDone(true);
-    await ProgressStore.saveProgress(progress);
+    await _persistProgress();
     final u = firebaseUser ?? _auth.currentUser;
     if (u != null) {
       try {
@@ -328,6 +352,7 @@ class AppState extends ChangeNotifier {
     await _syncRemoteProfile();
     await ensureFirestoreUserProfileIfMissing();
     await FirebaseBootstrap.seedMetaBootstrapDoc();
+    await _syncLearningProgress();
     notifyListeners();
   }
 
@@ -391,7 +416,7 @@ class AppState extends ChangeNotifier {
     progress.goalLabel = goalLabel;
     onboardingDone = true;
     await ProgressStore.setOnboardingDone(true);
-    await ProgressStore.saveProgress(progress);
+    await _persistProgress();
     final u = firebaseUser;
     if (u != null && !u.isAnonymous) {
       try {
@@ -404,7 +429,7 @@ class AppState extends ChangeNotifier {
 
   Future<void> setAvatarColorIndex(int index) async {
     progress.avatarColorIndex = index;
-    await ProgressStore.saveProgress(progress);
+    await _persistProgress();
     notifyListeners();
   }
 
@@ -455,7 +480,7 @@ class AppState extends ChangeNotifier {
     required int totalQuestions,
   }) async {
     if (progress.completedLessonIds.contains(lessonId)) {
-      await ProgressStore.saveProgress(progress);
+      await _persistProgress();
       notifyListeners();
       return;
     }
@@ -476,7 +501,7 @@ class AppState extends ChangeNotifier {
     if (progress.currentStreak > progress.longestStreak) {
       progress.longestStreak = progress.currentStreak;
     }
-    await ProgressStore.saveProgress(progress);
+    await _persistProgress();
     if (currentGroupId != null && FirebaseBootstrap.isReady) {
       try {
         await _groupRepository.addXpToMember(currentGroupId!, xpGain);

@@ -1,6 +1,7 @@
 enum UserRole {
   student,
-  teacher;
+  teacher,
+  admin;
 
   static UserRole? tryParse(String? raw) {
     switch (raw) {
@@ -8,6 +9,8 @@ enum UserRole {
         return UserRole.teacher;
       case 'student':
         return UserRole.student;
+      case 'admin':
+        return UserRole.admin;
       default:
         return null;
     }

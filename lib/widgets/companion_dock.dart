@@ -6,7 +6,7 @@ import '../app.dart';
 import '../theme/app_tokens.dart';
 import 'learning_companion.dart';
 
-/// Pibo flotante sobre el contenido: tap para ver consejo largo.
+/// Piko π flotante sobre el contenido: tap para ver consejo largo.
 class CompanionDock extends StatelessWidget {
   const CompanionDock({super.key});
 
@@ -40,7 +40,7 @@ class CompanionDock extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        'Pibo',
+                        'Piko π',
                         style: Theme.of(ctx).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
                       ),
                       const SizedBox(height: 12),

@@ -25,7 +25,7 @@ class LearningCompanion extends StatelessWidget {
   String _defaultLine(BuildContext context) {
     switch (mood) {
       case CompanionMood.idle:
-        return 'Soy Pibo, tu guía. Vamos paso a paso.';
+        return 'Soy Piko π, tu guía. Vamos paso a paso.';
       case CompanionMood.success:
         return '¡Bien! Cada acierto suma confianza.';
       case CompanionMood.streak:
@@ -56,7 +56,7 @@ class LearningCompanion extends StatelessWidget {
     final size = compact ? 44.0 : 72.0;
 
     return Semantics(
-      label: 'Mascota Pibo. $text',
+      label: 'Mascota Piko. $text',
       child: AnimatedContainer(
         duration: tokens.motionMedium,
         curve: Curves.easeOutCubic,

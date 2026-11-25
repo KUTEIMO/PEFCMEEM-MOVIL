@@ -16,10 +16,10 @@ abstract final class BrandingStrings {
   static const missionShort =
       'Micro-lecciones con práctica guiada, feedback inmediato y herramientas para docentes en clase o apoyo escolar.';
 
-  static const author1 = 'Juan Sebastian Perez Galvis';
-  static const author2 = 'Eduardo José Soto Herrera';
-  static const authorProgram = 'Estudiantes de Ingeniería de Sistemas';
-  static const authorMeta = 'Febrero de 2026 · Cúcuta, Colombia';
+  static const author1 = 'Eduardo José Soto Herrera';
+  static const author2 = 'Semillero de Investigación CreaSoft';
+  static const authorProgram = 'Programa de Ingeniería de Sistemas · Universidad Simón Bolívar';
+  static const authorMeta = '2026 · Cúcuta, Colombia';
 
   /// APK Android en el repositorio (rama main, carpeta releases/).
   static const apkDownloadUrl =
